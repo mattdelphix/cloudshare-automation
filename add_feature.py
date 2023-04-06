@@ -2,19 +2,25 @@ from cloudshare_functions import *
 
 blueprint_name_mappings = get_feature_blueprint(Feature)
 vms_name_mappings = get_feature_VMs(Feature)
-project_id_mappings = {"id": get_feature_project(Feature)}
+project_name_mappings = get_feature_project(Feature)
 
 #Makes sure environment exist before checking content VMs
 Env_data = check_if_env_exists_return_data(Env_name)
 
+#Get Project ID from Project Name info to later get VM ID
+projects = get_Projects()
+for line in projects:
+    if line["name"] == project_name_mappings:
+        project_ID = {"id": line["id"]}
+
 #Get Blueprint info to later get VM ID
-project_info = get_allBlueprintInfo(project_id_mappings)
+project_info = get_allBlueprintInfo(project_ID)
 for line in project_info:
     if line["name"] == blueprint_name_mappings:
         blueprint_ID = {"id": line["id"]}
 
 #Get machines info
-blueprint_details = get_BlueprintInfo(project_id_mappings, blueprint_ID)["createFromVersions"][0]["machines"]
+blueprint_details = get_BlueprintInfo(project_ID, blueprint_ID)["createFromVersions"][0]["machines"]
 
 #Loop for number of VMS
 list_of_VMS=[]

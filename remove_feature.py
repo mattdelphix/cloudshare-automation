@@ -1,8 +1,9 @@
 from cloudshare_functions import *
 
-blueprint_name_mappings = get_feature_blueprint(Feature)
 vms_name_mappings = get_feature_VMs(Feature)
-project_id_mappings = {"id": get_feature_project(Feature)}
+
+#Makes sure environment exist before checking content VMs
+Env_data = check_if_env_exists_return_data(Env_name)
 
 #Makes sure environment exist before checking content VMs
 Env_data = check_if_env_exists_return_data(Env_name)
