@@ -51,7 +51,7 @@ def get_getVMtemplates():
 def get_SnapshotInfo(snapshot):
     return get('/snapshots/' + snapshot['id'], {'snapshotId': snapshot['id']})
 
-ll
+
 def get_allSnapshotsInfo(env):
     return get('/snapshots/actions/getforenv', {'envId': env['id']})
 
