@@ -79,7 +79,7 @@
 				"Blueprint": "Standard Demo - Mongo Sybase DB2"
 			}
 		},
-		{M
+		{
 			"FeatureName": "Couchbase Virtualization",
 			"FeatureDetails": {
 				"RequiredVM": ["Delphix Continuous Data Engine 3", "Couchbase Source", "Couchbase Staging", "Couchbase Target DEV", "Couchbase Target QA", "Couchbase MaskGC"],
