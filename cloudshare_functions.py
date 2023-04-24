@@ -213,7 +213,7 @@ def get_feature_VMs(feature_name):
 def get_feature_project(feature_name):
     for x in mappings["Features"]:
         if x["FeatureName"] == feature_name:
-            return x["FeatureDetails"]["ProjectID"]
+            return x["FeatureDetails"]["ProjectName"]
 
 
 def check_if_env_exists_return_data(environemnt_name):
@@ -304,20 +304,3 @@ except:
     print("An exception occurred while reading the configuration file 'cloudshare_config.conf' please confirm file exists and has all fields, exiting...")
     sys.exit(1)
 
-parser = argparse.ArgumentParser(description='CloudShare API Operations')
-parser.add_argument('--version', action='version', version='%(prog)s Version ' + version)
-parser.add_argument("--env_name", type=str, required=False, help="Environment Name on CloudShare")
-parser.add_argument("--feature", type=str, required=True, help="Feature to demo")
-args = parser.parse_args()
-
-if args.env_name is not None:
-    Env_name = args.env_name
-elif ENV_NAME is not None:
-    Env_name = ENV_NAME
-
-Feature = args.feature
-
-# Check if feature exists in mapping
-if not check_feature_exists(Feature):
-    print("Feature ", Feature, " not found, exiting....")
-    sys.exit(1)

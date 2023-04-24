@@ -1,8 +1,26 @@
 from cloudshare_functions import *
 
+parser = argparse.ArgumentParser(description='CloudShare API Operations')
+parser.add_argument('--version', action='version', version='%(prog)s Version ' + version)
+parser.add_argument("--env_name", type=str, required=False, help="Environment Name on CloudShare")
+parser.add_argument("--feature", type=str, required=True, help="Feature to demo")
+args = parser.parse_args()
+
+if args.env_name is not None:
+    Env_name = args.env_name
+elif ENV_NAME is not None:
+    Env_name = ENV_NAME
+
+Feature = args.feature
+
 blueprint_name_mappings = get_feature_blueprint(Feature)
 vms_name_mappings = get_feature_VMs(Feature)
 project_name_mappings = get_feature_project(Feature)
+
+# Check if feature exists in mapping
+if not check_feature_exists(Feature):
+    print("Feature ", Feature, " not found, exiting....")
+    sys.exit(1)
 
 #Makes sure environment exist before checking content VMs
 Env_data = check_if_env_exists_return_data(Env_name)
@@ -23,21 +41,10 @@ for line in project_info:
 blueprint_details = get_BlueprintInfo(project_ID, blueprint_ID)["createFromVersions"][0]["machines"]
 
 #Loop for number of VMS
-list_of_VMS=[]
 for VM_Name in vms_name_mappings:
     if check_if_VM_exists_on_Env(Env_data, VM_Name):
         for line in blueprint_details:
             if line["name"] == VM_Name:
                 VMsnapshot = {"id": line["id"], "name": line["name"]}
-                list_of_VMS.append([VMsnapshot, VM_Name])
-                ##run_parallel(add_VM(Env_data, VMsnapshot, VM_Name, "Running", "CREATE"))
                 add_VM_from_snapshot(Env_data, VMsnapshot)
                 vm_execution_monitor(Env_data, VM_Name, "Running", "CREATE")
-
-command_build = ""
-#create vms in parallel
-for line in list_of_VMS:
-    command_build = command_build + 'add_VM(' + str(Env_data) + ', ' + str(line[0]) + ',"' + str(line[1]) + '", "Running", "CREATE"),'
-
-whole_command = command_build[:-1]
-run_parallel(whole_command)

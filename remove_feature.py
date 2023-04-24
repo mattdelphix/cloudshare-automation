@@ -1,9 +1,19 @@
 from cloudshare_functions import *
 
-vms_name_mappings = get_feature_VMs(Feature)
+parser = argparse.ArgumentParser(description='CloudShare API Operations')
+parser.add_argument('--version', action='version', version='%(prog)s Version ' + version)
+parser.add_argument("--env_name", type=str, required=False, help="Environment Name on CloudShare")
+parser.add_argument("--feature", type=str, required=True, help="Feature to remove")
+args = parser.parse_args()
 
-#Makes sure environment exist before checking content VMs
-Env_data = check_if_env_exists_return_data(Env_name)
+if args.env_name is not None:
+    Env_name = args.env_name
+elif ENV_NAME is not None:
+    Env_name = ENV_NAME
+
+Feature = args.feature
+
+vms_name_mappings = get_feature_VMs(Feature)
 
 #Makes sure environment exist before checking content VMs
 Env_data = check_if_env_exists_return_data(Env_name)
