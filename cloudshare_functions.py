@@ -81,6 +81,10 @@ def extend_env(env):
     return put("/envs/actions/extend", {'envId': env['id']})
 
 
+def remove_env(env):
+    return delete("/envs/ID", {'ID': env['id']})
+
+
 def delete_VM(machine):
     return delete("/vms", {'ID': machine['id']})
 
