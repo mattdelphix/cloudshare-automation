@@ -88,7 +88,6 @@ def remove_env(env):
 def delete_VM(machine):
     return delete("/vms", {'ID': machine['id']})
 
-
 def add_VM_from_snapshot(env, machine):
     return put("/envs", None, {
         "envId": env['id'],
@@ -113,6 +112,29 @@ def remove_VM(env, machine, vm_name, status_text, text):
     delete_VM(machine)
     vm_execution_monitor(env, vm_name, status_text, text)
     return
+
+def execute_command_vm (machine, path):
+    return post("/vms/actions/executepath", None, {
+        "vmID": machine['id'],
+        "path": path
+    })
+
+
+def execute_command (machine, path):
+    execution = execute_command_vm(machine, path)
+    exit_code = 99
+    # while exit_code =! 0 :
+        #exit_code = get_script_execution_status(machine, execution)["exit_code"]
+        #sleep 5
+
+
+
+def get_script_execution_status(machine, execution):
+    print("polling execution status...")
+    return get("vms/actions/checkExecutionStatus", {
+        'vmId': machine['id'],
+        'executionId': execution['executionId']
+    })
 
 
 def vm_execution_monitor(env, vm_name, status_text, text):
@@ -164,13 +186,6 @@ def env_execution_monitor(env, status_text, text):
 
     print("Environment ", env_name, " is ", text, "!")
 
-
-def get_script_execution_status(machine, execution):
-    print("polling execution status...")
-    return get("vms/actions/checkExecutionStatus", {
-        'vmId': machine['id'],
-        'executionId': execution['executionId']
-    })
 
 
 def read_generic_config(filename=None):
