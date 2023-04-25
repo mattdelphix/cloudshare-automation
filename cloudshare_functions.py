@@ -68,6 +68,26 @@ def get_BlueprintInfo(project, blueprint):
 def get_Projects():
     return get('/projects', None)
 
+def add_env(env,name,description, project,policy,region,ownerEmail,team, blueprint, snapshot):
+    return post("/envs/", {
+        "environemnt": {
+            "name": name,
+            "description": description,
+            "projectId": project["id"],
+            "policyId": policy["id"],
+            "regionId": region["id"],
+            "ownerEmail": ownerEmail,
+            "teamId": team["id"]
+        },
+        "itemsCart": [
+            {
+                "type": 1,
+                "blueprintId": blueprint["id"],
+                "snapshotId": snapshot["id"]
+            }
+        ]
+    })
+
 
 def resume_env(env):
     return put("/envs/actions/resume", {'envId': env['id']})
