@@ -68,6 +68,7 @@ def get_BlueprintInfo(project, blueprint):
 def get_Projects():
     return get('/projects', None)
 
+
 def add_env(env,name,description, project,policy,region,ownerEmail,team, blueprint, snapshot):
     return post("/envs/", {
         "environemnt": {
