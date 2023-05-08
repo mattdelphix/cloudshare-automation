@@ -69,9 +69,19 @@ def get_Projects():
     return get('/projects', None)
 
 
+def get_Policies(project):
+    return get('/projects/' + project["id"] + "/policies/", None)
+
+
+def get_Region():
+    return get('/regions', None)
+
+def get_Team():
+    return get('/teams', None)
+
 def add_env(name,description, project, policy, region, ownerEmail, team, blueprint, snapshot):
     return post("/envs/", {
-        "environemnt": {
+        "environment": {
             "name": name,
             "description": description,
             "projectId": project["id"],
@@ -195,15 +205,13 @@ def env_execution_monitor(env, status_text, text):
     env_name = env["name"]
     print("Waiting for order to ", text, " to complete for Environment ", env_name)
     while status_env != status_text:
-        time.sleep(3)
-        res = get_env_status(env)["vms"]
-        for x in res:
-            if x["name"] == env_name:
-                # print(x["statusText"],  status_env, x["progress"])
-                status_env = x["statusText"]
-                if status_env == "Creation Failed":
-                    print("Environment creation failed!")
-                    break
+        time.sleep(20)
+        res = get_env_status(env)
+        if res["name"] == env_name:
+            status_env = res["statusText"]
+            if status_env == "Creation Failed":
+                print("Environment creation failed!")
+                break
 
     print("Environment ", env_name, " is ", text, "!")
 
