@@ -213,7 +213,7 @@ def env_execution_monitor(env, status_text, text):
                 print("Environment creation failed!")
                 break
 
-    print("Environment ", env_name, " is ", text, "!")
+    print("Action of ", text, " for new Environment ", env_name, " is completed!")
 
 
 
