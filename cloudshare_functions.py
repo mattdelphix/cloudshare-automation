@@ -158,7 +158,7 @@ def execute_command (machine, path):
         exit_code = get_script_execution_status(machine, execution)["exit_code"]
         time.sleep(10)
 
-    print("Command ", path, " running on VM ", machine["name"], " has completed!")
+    print("Command ", path, " running on VM ", machine["name"], " has completed!" )
 
 
 
