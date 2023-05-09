@@ -79,7 +79,7 @@ def get_Region():
 def get_Team():
     return get('/teams', None)
 
-def add_env(name,description, project, policy, region, ownerEmail, team, blueprint, snapshot):
+def add_env(name,description, project, policy, region, ownerEmail, blueprint, snapshot):
     return post("/envs/", {
         "environment": {
             "name": name,
@@ -87,8 +87,7 @@ def add_env(name,description, project, policy, region, ownerEmail, team, bluepri
             "projectId": project["id"],
             "policyId": policy["id"],
             "regionId": region["id"],
-            "ownerEmail": ownerEmail,
-            "teamId": team["id"]
+            "ownerEmail": ownerEmail
         },
         "itemsCart": [
             {
@@ -153,12 +152,13 @@ def execute_command_vm (machine, path):
 
 def execute_command (machine, path):
     execution = execute_command_vm(machine, path)
-    exit_code = 99
+    exit_code = None
     while exit_code != 0:
         script_exec = get_script_execution_status(machine, execution)
         exit_code = script_exec["exit_code"]
+        success_code = script_exec["success"]
         time.sleep(10)
-        if exit_code == 1:
+        if exit_code == 1 or (success_code is False and exit_code is None):
             print("Script execution failed, with message: ", script_exec["standardOutput"], " -- ", script_exec["standardError"])
             break
 

@@ -8,7 +8,7 @@ parser.add_argument("--project", type=str, required=True, help="Project Name to 
 # parser.add_argument("--policy", type=str, required=True, help="Policy Name to create the environment with")
 # parser.add_argument("--region", type=str, required=True, help="Region Name to create the environment on")
 parser.add_argument("--email", type=str, required=True, help="Email of owner of new environment")
-parser.add_argument("--team", type=str, required=True, help="Team Email of owner of new environment")
+#parser.add_argument("--team", type=str, required=True, help="Team Email of owner of new environment")
 parser.add_argument("--blueprint", type=str, required=True, help="Blueprint Name to create new environment from")
 args = parser.parse_args()
 
@@ -16,7 +16,7 @@ args = parser.parse_args()
 project_name = args.project
 policy_name = "2 Weeks with Auto Suspend"
 region_name = "US East (Miami)"
-team_name = args.team
+#team_name = args.team
 blueprint_name = args.blueprint
 env_name = args.env_name
 description = args.desc
@@ -78,18 +78,18 @@ if snapshot_ID is None:
     sys.exit(1)
 
 # Get team id for default group of 410000-Presales
-team_details = get_Team()
-team_ID = None
-for line in team_details:
-    if line["name"] == team_name:
-        team_ID = {"id": line["id"]}
+#team_details = get_Team()
+#team_ID = None
+#for line in team_details:
+#    if line["name"] == team_name:
+#        team_ID = {"id": line["id"]}
 
-if team_ID is None:
-    print("Team Name: " + team_name + " has not been found in Cloudshare")
-    sys.exit(1)
+#if team_ID is None:
+#    print("Team Name: " + team_name + " has not been found in Cloudshare")
+#    sys.exit(1)
 
 # Ready to crete environment
 # def add_env(name,description, project, policy, region, ownerEmail, team, blueprint, snapshot):
-env_response = add_env(env_name, description, project_ID, policies_ID, region_ID, email, team_ID, blueprint_ID, snapshot_ID)
+env_response = add_env(env_name, description, project_ID, policies_ID, region_ID, email, blueprint_ID, snapshot_ID)
 new_env = {"id": env_response["environmentId"], "name": env_name}
 env_execution_monitor(new_env, "Ready", "CREATE")
