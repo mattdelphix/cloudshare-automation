@@ -154,9 +154,11 @@ def execute_command_vm (machine, path):
 def execute_command (machine, path):
     execution = execute_command_vm(machine, path)
     exit_code = 99
-    # while exit_code =! 0 :
-        #exit_code = get_script_execution_status(machine, execution)["exit_code"]
-        #sleep 5
+    while exit_code != 0:
+        exit_code = get_script_execution_status(machine, execution)["exit_code"]
+        time.sleep(10)
+
+    print("Command ", path, " running on VM ", machine["name"], " has completed!")
 
 
 
@@ -175,7 +177,7 @@ def vm_execution_monitor(env, vm_name, status_text, text):
     status_vm = None
     print("Waiting for order to ", text, " complete for VM ", vm_name)
     while status_vm != status_text:
-        time.sleep(3)
+        time.sleep(30)
         flag_vm_exists = False
         res = get_env_status(env)["vms"]
         for x in res:
@@ -205,7 +207,7 @@ def env_execution_monitor(env, status_text, text):
     env_name = env["name"]
     print("Waiting for order to ", text, " to complete for Environment ", env_name)
     while status_env != status_text:
-        time.sleep(20)
+        time.sleep(30)
         res = get_env_status(env)
         if res["name"] == env_name:
             status_env = res["statusText"]
