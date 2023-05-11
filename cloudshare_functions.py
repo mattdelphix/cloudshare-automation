@@ -159,7 +159,7 @@ def execute_command (machine, path):
         success_code = script_exec["success"]
         time.sleep(10)
         if exit_code == 1 or (success_code is False and exit_code is None):
-            print("Script execution failed, with message: ", script_exec["standardOutput"], " -- ", script_exec["standardError"])
+            print("Script ", path, " execution failed, with message: ", script_exec["standardOutput"], " -- ", script_exec["standardError"])
             break
 
     print("Command ", path, " running on VM ", machine["name"], " has completed!")
@@ -345,10 +345,6 @@ try:
     API_KEY = configuration.get('Generic_config', 'API_KEY')
     if not API_KEY:
         print("Parameter API_KEY seems to be empty...")
-        sys.exit(1)
-    ENV_NAME = configuration.get('Generic_config', 'ENV_NAME')
-    if not ENV_NAME:
-        print("Parameter ENV_NAME seems to be empty...")
         sys.exit(1)
     version = configuration.get('Generic_config', 'version')
     if not version:

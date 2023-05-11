@@ -2,20 +2,16 @@ from cloudshare_functions import *
 
 parser = argparse.ArgumentParser(description='CloudShare API Operations')
 parser.add_argument('--version', action='version', version='%(prog)s Version ' + version)
-parser.add_argument("--env_name", type=str, required=False, help="Environment Name on CloudShare")
+parser.add_argument("--env_name", type=str, required=True, help="Environment Name on CloudShare")
 parser.add_argument("--feature", type=str, required=True, help="Feature to demo")
 args = parser.parse_args()
 
-if args.env_name is not None:
-    Env_name = args.env_name
-elif ENV_NAME is not None:
-    Env_name = ENV_NAME
-
+Env_name = args.env_name
 Feature = args.feature
-
 blueprint_name_mappings = get_feature_blueprint(Feature)
 vms_name_mappings = get_feature_VMs(Feature)
 project_name_mappings = get_feature_project(Feature)
+
 
 # Check if feature exists in mapping
 if not check_feature_exists(Feature):

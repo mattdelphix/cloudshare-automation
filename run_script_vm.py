@@ -7,11 +7,7 @@ parser.add_argument("--vm_name", type=str, required=True, help="VM to add run sc
 parser.add_argument("--script", type=str, required=True, help="Complete script or commmand call including Full path to be ran")
 args = parser.parse_args()
 
-if args.env_name is not None:
-    Env_name = args.env_name
-elif ENV_NAME is not None:
-    Env_name = ENV_NAME
-
+Env_name = args.env_name
 VM_Name = args.vm_name
 
 # Makes sure environment exist before checking content VMs

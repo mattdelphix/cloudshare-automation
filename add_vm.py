@@ -2,20 +2,16 @@ from cloudshare_functions import *
 
 parser = argparse.ArgumentParser(description='CloudShare API Operations')
 parser.add_argument('--version', action='version', version='%(prog)s Version ' + version)
-parser.add_argument("--env_name", type=str, required=False, help="Environment Name on CloudShare")
+parser.add_argument("--env_name", type=str, required=True, help="Environment Name on CloudShare")
 parser.add_argument("--vm_name", type=str, required=True, help="VM to add to env")
 parser.add_argument("--project_name", type=str, required=True, help="Project Name where the VM exists")
 parser.add_argument("--blueprint_name", type=str, required=True, help="Blueprint where the VM exists")
 args = parser.parse_args()
 
-if args.env_name is not None:
-    Env_name = args.env_name
-elif ENV_NAME is not None:
-    Env_name = ENV_NAME
-
 VM_Name = args.vm_name
 Project_Name = args.project_name
 Blueprint_Name = args.blueprint_name
+Env_name = args.env_name
 
 #Makes sure environment exist before checking content VMs
 Env_data = check_if_env_exists_return_data(Env_name)
