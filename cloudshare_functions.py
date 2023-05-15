@@ -243,8 +243,13 @@ def read_mappings_config(filename=None):
         mappinggFile = current_dir + "/mapping.json"
     else:
         mappinggFile = current_dir + "/" + filename
-    f = open(mappinggFile)
-    return json.load(f)
+
+    try:
+        f = open(mappinggFile)
+        return json.load(f)
+    except IOError:
+        print("File ", mappinggFile, " does not seem to exist")
+        sys.exit(1)
 
 
 def check_feature_exists(text):
