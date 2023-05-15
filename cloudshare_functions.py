@@ -144,30 +144,31 @@ def remove_VM(env, machine, vm_name, status_text, text):
     return
 
 def execute_command_vm (machine, path):
-    return post("/vms/actions/executepath", None, {
+    return post("/vms/actions/executepath", {
         "vmID": machine['id'],
         "path": path
     })
 
 
 def execute_command (machine, path):
+    # exit_code 127 is for file not found.
+    # Success code is false and exit code is none for Cloudshare failures
     execution = execute_command_vm(machine, path)
     exit_code = None
     while exit_code != 0:
         script_exec = get_script_execution_status(machine, execution)
-        exit_code = script_exec["exit_code"]
+        exit_code = script_exec["exitCode"]
         success_code = script_exec["success"]
         time.sleep(10)
-        if exit_code == 1 or (success_code is False and exit_code is None):
+        if exit_code == 1 or exit_code == 127 or (success_code is False and exit_code is None):
             print("Script ", path, " execution failed, with message: ", script_exec["standardOutput"], " -- ", script_exec["standardError"])
-            break
+            return
 
     print("Command ", path, " running on VM ", machine["name"], " has completed!")
 
 
 
 def get_script_execution_status(machine, execution):
-    print("polling execution status...")
     return get("vms/actions/checkExecutionStatus", {
         'vmId': machine['id'],
         'executionId': execution['executionId']
