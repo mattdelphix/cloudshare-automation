@@ -225,7 +225,7 @@ def env_execution_monitor(env, status_text, text):
 
 
 def read_generic_config(filename=None):
-    current_dir = os.path.dirname(__file__)
+    current_dir = os.path.dirname(os.path.abspath(__file__))
     if filename is None:
         configFile = current_dir + "/cloudshare_config.conf"
     else:
@@ -236,7 +236,9 @@ def read_generic_config(filename=None):
 
 
 def read_mappings_config(filename=None):
-    current_dir = os.path.dirname(__file__)
+    #current_dir = os.path.dirname(__file__)
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+
     if filename is None:
         mappinggFile = current_dir + "/mapping.json"
     else:
