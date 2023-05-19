@@ -8,15 +8,16 @@ args = parser.parse_args()
 
 Env_name = args.env_name
 Feature = args.feature
-blueprint_name_mappings = get_feature_blueprint(Feature)
-vms_name_mappings = get_feature_VMs(Feature)
-project_name_mappings = get_feature_project(Feature)
 
 
 # Check if feature exists in mapping
 if not check_feature_exists(Feature):
     print("Feature ", Feature, " not found, exiting....")
     sys.exit(1)
+
+blueprint_name_mappings = get_feature_blueprint(Feature)
+vms_name_mappings = get_feature_VMs(Feature)
+project_name_mappings = get_feature_project(Feature)
 
 #Makes sure environment exist before checking content VMs
 Env_data = check_if_env_exists_return_data(Env_name)

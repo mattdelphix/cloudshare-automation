@@ -9,7 +9,14 @@ args = parser.parse_args()
 
 Feature = args.feature
 Env_name = args.env_name
+
+# Check if feature exists in mapping
+if not check_feature_exists(Feature):
+    print("Feature ", Feature, " not found, exiting....")
+    sys.exit(1)
+
 vms_name_mappings = get_feature_VMs(Feature)
+
 
 #Makes sure environment exist before checking content VMs
 Env_data = check_if_env_exists_return_data(Env_name)
