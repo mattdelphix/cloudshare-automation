@@ -225,8 +225,8 @@ def env_execution_monitor(env, status_text, text):
 
 
 def read_generic_config(filename=None):
-    #current_dir = os.path.dirname(os.path.abspath(__file__))
-    current_dir = "/home/delphix/cloudshare-automation"
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    #current_dir = "/home/delphix/cloudshare-automation"
     if filename is None:
         configFile = current_dir + "/cloudshare_config.conf"
     else:
@@ -237,8 +237,8 @@ def read_generic_config(filename=None):
 
 
 def read_mappings_config(filename=None):
-    #current_dir = os.path.dirname(os.path.abspath(__file__))
-    current_dir = "/home/delphix/cloudshare-automation"
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    #current_dir = "/home/delphix/cloudshare-automation"
 
     if filename is None:
         mappinggFile = current_dir + "/mapping.json"
@@ -260,6 +260,11 @@ def check_feature_exists(text):
             return 1
     return 0
 
+def get_features():
+    list = []
+    for x in mappings["Features"]:
+        list.append(x["FeatureName"])
+    return ", ".join(list)
 
 def get_feature_blueprint(feature_name):
     for x in mappings["Features"]:
