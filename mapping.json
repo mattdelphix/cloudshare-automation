@@ -90,7 +90,7 @@
 		{
 			"FeatureName": "DCT",
 			"FeatureDetails": {
-				"RequiredVM": ["DCT 6.0 VM","Delphix Continuous Data Engine 1","Delphix Continuous Compliance Engine 1"],
+				"RequiredVM": ["DCT K8S","Delphix Continuous Data Engine 1","Delphix Continuous Compliance Engine 1"],
 				"ProjectName": "Delphix Core Managed Demos",
 				"Blueprint": "Standard Demo - Core Datasources"
 			}
