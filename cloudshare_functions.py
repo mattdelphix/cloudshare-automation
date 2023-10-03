@@ -59,6 +59,8 @@ def get_allSnapshotsInfo(env):
 def get_allBlueprintInfo(project):
     return get("/projects/" + project["id"] + "/blueprints", {'projectId': project['id']})
 
+def get_allBlueprintInfo_default(project):
+    return get("/projects/" + project["id"] + "/blueprints?defaultSnapshot=true")
 
 def get_BlueprintInfo(project, blueprint):
     return get("/projects/" + project["id"] + "/blueprints/" + blueprint['id'],
@@ -226,7 +228,7 @@ def env_execution_monitor(env, status_text, text):
 
 def read_generic_config(filename=None):
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    current_dir = "/home/delphix/cloudshare-automation"
+   # current_dir = "/home/delphix/cloudshare-automation"
     if filename is None:
         configFile = current_dir + "/cloudshare_config.conf"
     else:
@@ -238,7 +240,7 @@ def read_generic_config(filename=None):
 
 def read_mappings_config(filename=None):
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    current_dir = "/home/delphix/cloudshare-automation"
+    #current_dir = "/home/delphix/cloudshare-automation"
 
     if filename is None:
         mappinggFile = current_dir + "/mapping.json"

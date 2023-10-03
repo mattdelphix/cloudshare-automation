@@ -30,6 +30,7 @@ if project_ID is None:
     sys.exit(1)
 
 #Get Blueprint info to later get VM ID
+blueprint_ID = None
 project_info = get_allBlueprintInfo(project_ID)
 for line in project_info:
     if line["name"] == Blueprint_Name:

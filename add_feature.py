@@ -36,14 +36,17 @@ for Feature in Feature_list:
         if line["name"] == blueprint_name_mappings:
             blueprint_ID = {"id": line["id"]}
 
-    #Get machines info
-    blueprint_details = get_BlueprintInfo(project_ID, blueprint_ID)["createFromVersions"][0]["machines"]
+    # Get machines info
+    # blueprint_details = get_BlueprintInfo(project_ID, blueprint_ID)["createFromVersions"][0]["machines"]
+    blueprint_default_details = get_allBlueprintInfo_default(project_ID)
 
-    #Loop for number of VMS
-    for VM_Name in vms_name_mappings:
-        if check_if_VM_exists_on_Env(Env_data, VM_Name):
-            for line in blueprint_details:
-                if line["name"] == VM_Name:
-                    VMsnapshot = {"id": line["id"], "name": line["name"]}
-                    add_VM_from_snapshot(Env_data, VMsnapshot)
-                    vm_execution_monitor(Env_data, VM_Name, "Running", "CREATE")
+    for i in range(len(blueprint_default_details)):
+        if blueprint_default_details[i]["name"] == blueprint_name_mappings:
+             # Loop for number of VMS
+            for VM_Name in vms_name_mappings:
+                if check_if_VM_exists_on_Env(Env_data, VM_Name):
+                    for line in blueprint_default_details[i]["createFromVersions"][0]["machines"]:
+                        if line["name"] == VM_Name:
+                            VMsnapshot = {"id": line["id"], "name": line["name"]}
+                            add_VM_from_snapshot(Env_data, VMsnapshot)
+                            vm_execution_monitor(Env_data, VM_Name, "Running", "CREATE")

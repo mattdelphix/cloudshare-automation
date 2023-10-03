@@ -72,6 +72,14 @@
 			}
 		},
 		{
+			"FeatureName": "DB2 Virtualization",
+			"FeatureDetails": {
+				"RequiredVM": ["Delphix Continuous Data Engine 2", "DB2 Source", "DB2 Target"],
+				"ProjectName": "Delphix Core Managed Demos",
+				"Blueprint": "Standard Demo - Mongo Sybase DB2"
+			}
+		},
+		{
 			"FeatureName": "Sybase Virtualization",
 			"FeatureDetails": {
 				"RequiredVM": ["Delphix Continuous Data Engine 2", "Sybase Source", "Sybase Target"],
@@ -90,7 +98,7 @@
 		{
 			"FeatureName": "DCT",
 			"FeatureDetails": {
-				"RequiredVM": ["DCT K8S","Delphix Continuous Data Engine 1","Delphix Continuous Compliance Engine 1"],
+				"RequiredVM": ["DCT K8S (1)","Delphix Continuous Data Engine 1","Delphix Continuous Compliance Engine 1"],
 				"ProjectName": "Delphix Core Managed Demos",
 				"Blueprint": "Standard Demo - Core Datasources"
 			}
