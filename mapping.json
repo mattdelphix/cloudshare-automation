@@ -1,6 +1,6 @@
 {
 	"Features": [{
-			"FeatureName": "Developer/DBA tasks ",
+			"FeatureName": "Developer/DBA tasks",
 			"FeatureDetails": {
 				"RequiredVM": ["Developer VM"],
 				"ProjectName": "Delphix Core Managed Demos",
