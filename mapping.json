@@ -68,7 +68,7 @@
 			"FeatureDetails": {
 				"RequiredVM": ["Delphix Continuous Data Engine 2", "Mongodb Source", "MongoDB Target"],
 				"ProjectName": "Delphix Core Managed Demos",
-				"Blueprint": "Standard Demo - Mongo Sybase DB2"
+				"Blueprint": "Standard Demo - Mongo Sybase"
 			}
 		},
 		{
@@ -76,7 +76,7 @@
 			"FeatureDetails": {
 				"RequiredVM": ["Delphix Continuous Data Engine 2", "DB2 Source", "DB2 Target"],
 				"ProjectName": "Delphix Core Managed Demos",
-				"Blueprint": "Standard Demo - Mongo Sybase DB2"
+				"Blueprint": "Standard Demo - DB2"
 			}
 		},
 		{
@@ -84,7 +84,7 @@
 			"FeatureDetails": {
 				"RequiredVM": ["Delphix Continuous Data Engine 2", "Sybase Source", "Sybase Target"],
 				"ProjectName": "Delphix Core Managed Demos",
-				"Blueprint": "Standard Demo - Mongo Sybase DB2"
+				"Blueprint": "Standard Demo - Mongo Sybase"
 			}
 		},
 		{
