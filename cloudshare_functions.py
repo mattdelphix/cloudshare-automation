@@ -37,7 +37,7 @@ def delete(path, queryParams=None):
 
 
 def get_env_id():
-    return get('envs')
+    return get('envs?brief=false')
 
 
 def get_env_status(env):
@@ -286,21 +286,28 @@ def get_feature_project(feature_name):
             return x["FeatureDetails"]["ProjectName"]
 
 
-def check_if_env_exists_return_data(environemnt_name):
-    # check if environemnt exists  before looking for VMs
+def check_if_env_exists_return_data(environment_name):
+    # check if environment exists  before looking for VMs
     flag = 0
     res = get_env_id()
     for x in res:
-        if x["name"] == environemnt_name:
+        if x["name"] == environment_name:
             flag = 1
-            env = {"id": x["id"], "name": x["name"]}
+            env = {"id": x["id"], "name": x["name"], 'Owner': x["ownerEmail"]}
 
     if flag == 0:
-        print("Environment ", environemnt_name, " not found, exiting...")
+        print("Environment ", environment_name, " not found, exiting...")
         sys.exit(1)
-    print("Working on Environment ", environemnt_name, "!!!")
+    print("Working on Environment ", environment_name, "!!!")
     return env
 
+def check_if_email_exists(env, email):
+    # check if email of owner is the same as input in argument
+    if env["Owner"] == email:
+        return 1
+    else:
+        print("Email: <", email, "> does not seem to match with owner of Environment: <", env["Owner"], "> exiting...")
+        return 0
 
 def check_if_VM_exists_on_Env(env, vm_name):
     # check for existing VMS

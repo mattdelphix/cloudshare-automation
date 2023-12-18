@@ -6,15 +6,21 @@ parser.add_argument("--env_name", type=str, required=True, help="Environment Nam
 parser.add_argument("--vm_name", type=str, required=True, help="VM to add to env")
 parser.add_argument("--project_name", type=str, required=True, help="Project Name where the VM exists")
 parser.add_argument("--blueprint_name", type=str, required=True, help="Blueprint where the VM exists")
+parser.add_argument("--email", type=str, required=True, help="Email of requestor")
 args = parser.parse_args()
 
 VM_Name = args.vm_name
 Project_Name = args.project_name
 Blueprint_Name = args.blueprint_name
 Env_name = args.env_name
+Email = args.email
 
 #Makes sure environment exist before checking content VMs
 Env_data = check_if_env_exists_return_data(Env_name)
+
+# Makes sure the owner of the environment is the caller of the script
+if not check_if_email_exists(Env_data, Email):
+    sys.exit(1)
 
 # Check if VM exists on the environment
 if not check_if_VM_exists_on_Env(Env_data, VM_Name):

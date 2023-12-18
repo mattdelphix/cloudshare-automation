@@ -5,9 +5,11 @@ parser.add_argument('--version', action='version', version='%(prog)s Version ' +
 parser.add_argument("--available_features", action="version", version="List all available Features: " + get_features())
 parser.add_argument("--env_name", type=str, required=True, help="Environment Name on CloudShare")
 parser.add_argument("--feature", type=str, required=True, help="Feature to demo")
+parser.add_argument("--email", type=str, required=True, help="Email of requestor")
 args = parser.parse_args()
 
 Env_name = args.env_name
+Email = args.email
 #Feature = args.feature
 Feature_list = args.feature.split(",")
 
@@ -23,6 +25,11 @@ for Feature in Feature_list:
 
     #Makes sure environment exist before checking content VMs
     Env_data = check_if_env_exists_return_data(Env_name)
+
+    #Makes usre the owner of the environment is the caller of the script
+    # Makes sure the owner of the environment is the caller of the script
+    if not check_if_email_exists(Env_data, Email):
+        sys.exit(1)
 
     #Get Project ID from Project Name info to later get VM ID
     projects = get_Projects()
