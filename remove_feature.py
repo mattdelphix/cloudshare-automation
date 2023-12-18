@@ -22,12 +22,8 @@ for Feature in Feature_list:
 
     vms_name_mappings = get_feature_VMs(Feature)
 
-    #Makes sure environment exist before checking content VMs
-    Env_data = check_if_env_exists_return_data(Env_name)
-
-    #Makes sure the owner of the environment is the caller of the script
-    if not check_if_email_exists(Env_data, Email):
-        sys.exit(1)
+    # Makes sure environment exist before checking content VMs
+    Env_data = check_if_env_exists_return_data(Env_name, Email)
 
     #Get all Envs VMS information
     vms_in_env = []

@@ -24,12 +24,7 @@ for Feature in Feature_list:
     project_name_mappings = get_feature_project(Feature)
 
     #Makes sure environment exist before checking content VMs
-    Env_data = check_if_env_exists_return_data(Env_name)
-
-    #Makes usre the owner of the environment is the caller of the script
-    # Makes sure the owner of the environment is the caller of the script
-    if not check_if_email_exists(Env_data, Email):
-        sys.exit(1)
+    Env_data = check_if_env_exists_return_data(Env_name, Email)
 
     #Get Project ID from Project Name info to later get VM ID
     projects = get_Projects()

@@ -11,12 +11,8 @@ Env_name = args.env_name
 VM_Name = args.vm_name
 Email = args.email
 
-# Makes sure environment exist before checking content VMs
-Env_data = check_if_env_exists_return_data(Env_name)
-
-# Makes sure the owner of the environment is the caller of the script
-if not check_if_email_exists(Env_data, Email):
-    sys.exit(1)
+#Makes sure environment exist before checking content VMs
+Env_data = check_if_env_exists_return_data(Env_name, Email)
 
 # Check if VM exists on the environment
 vm_exists = False

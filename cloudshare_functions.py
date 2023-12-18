@@ -286,18 +286,25 @@ def get_feature_project(feature_name):
             return x["FeatureDetails"]["ProjectName"]
 
 
-def check_if_env_exists_return_data(environment_name):
+def check_if_env_exists_return_data(environment_name, email):
     # check if environment exists  before looking for VMs
     flag = 0
     res = get_env_id()
     for x in res:
         if x["name"] == environment_name:
-            flag = 1
-            env = {"id": x["id"], "name": x["name"], 'Owner': x["ownerEmail"]}
+            if x["ownerEmail"] == email:
+                flag = 1
+                env = {"id": x["id"], "name": x["name"], 'Owner': x["ownerEmail"]}
+            else:
+                flag = 2
 
     if flag == 0:
         print("Environment ", environment_name, " not found, exiting...")
         sys.exit(1)
+    if flag == 2:
+        print("Email: <", email, "> does not seem to be an owner of an Environment with the name: '", environment_name, "' exiting...")
+        sys.exit(1)
+
     print("Working on Environment ", environment_name, "!!!")
     return env
 
