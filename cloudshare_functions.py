@@ -293,8 +293,9 @@ def check_if_env_exists_return_data(environment_name, email):
     for x in res:
         if x["name"] == environment_name:
             if x["ownerEmail"] == email:
-                flag = 1
                 env = {"id": x["id"], "name": x["name"], 'Owner': x["ownerEmail"]}
+                print("Working on Environment ", environment_name, "!!!")
+                return env
             else:
                 flag = 2
 
@@ -305,8 +306,6 @@ def check_if_env_exists_return_data(environment_name, email):
         print("Email: <", email, "> does not seem to be an owner of an Environment with the name: '", environment_name, "' exiting...")
         sys.exit(1)
 
-    print("Working on Environment ", environment_name, "!!!")
-    return env
 
 def check_if_email_exists(env, email):
     # check if email of owner is the same as input in argument
