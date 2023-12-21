@@ -65,6 +65,10 @@ def get_allBlueprintInfo_default(project):
 def get_BlueprintInfo(project, blueprint):
     return get("/projects/" + project["id"] + "/blueprints/" + blueprint['id'],
                {'projectId': project['id'], "blueprintId": blueprint['id']})
+def find_default_BlueprintInfo(blueprint_info):
+    for i in range(len(blueprint_info)):
+        if blueprint_info[i]["isDefault"]:
+            return blueprint_info[i]["machines"]
 
 
 def get_Projects():

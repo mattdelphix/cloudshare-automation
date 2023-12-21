@@ -27,6 +27,7 @@ for Feature in Feature_list:
     Env_data = check_if_env_exists_return_data(Env_name, Email)
 
     #Get Project ID from Project Name info to later get VM ID
+    project_ID = None
     projects = get_Projects()
     for line in projects:
         if line["name"] == project_name_mappings:

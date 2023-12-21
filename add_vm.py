@@ -23,6 +23,7 @@ if not check_if_VM_exists_on_Env(Env_data, VM_Name):
     sys.exit(1)
 
 #Get Project ID from Project Name info to later get VM ID
+project_ID = None
 projects = get_Projects()
 for line in projects:
     if line["name"] == Project_Name:
@@ -41,8 +42,8 @@ if blueprint_ID is None:
     print("Blueprint Name: " + Blueprint_Name + " has not been found in Cloudshare")
     sys.exit(1)
 
-#Get machines info
-blueprint_details = get_BlueprintInfo(project_ID, blueprint_ID)["createFromVersions"][0]["machines"]
+#Get default machines info
+blueprint_details = find_default_BlueprintInfo(get_BlueprintInfo(project_ID, blueprint_ID)["createFromVersions"])
 
 #Check if VM exists in catalogs and if yes adds it and exits
 flag_found = False
