@@ -10,7 +10,6 @@ args = parser.parse_args()
 
 Env_name = args.env_name
 Email = args.email
-#Feature = args.feature
 Feature_list = args.feature.split(",")
 
 for Feature in Feature_list:
